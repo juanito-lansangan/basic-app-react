@@ -6,16 +6,26 @@ import * as TodoActions from '../actions/TodoActions';
 class Todos extends Component {
   constructor() {
     super();
+    this.getTodos = this.getTodos.bind(this);
     this.state = {
       todos: TodoStore.getAll()
     };
   }
 
   componentWillMount() {
-    TodoStore.on('change', () => {
-      this.setState({
-        todos: TodoStore.getAll(),
-      });
+    TodoStore.on('change', this.getTodos);
+    console.log('====================================');
+    console.log(TodoStore.listenerCount("change"));
+    console.log('====================================');
+  }
+
+  componentWillUnmount() {
+    TodoStore.removeListener('change', this.getTodos);
+  }
+
+  getTodos() {
+    this.setState({
+      todos: TodoStore.getAll(),
     });
   }
 
