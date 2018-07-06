@@ -69,5 +69,5 @@ class TodoStore extends EventEmitter {
 const todoStore = new TodoStore();
 // window.todoStore = todoStore;
 dispatcher.register(todoStore.handleActions.bind(todoStore));
-window.dispatcher = dispatcher;
+// window.dispatcher = dispatcher;
 export default todoStore;
